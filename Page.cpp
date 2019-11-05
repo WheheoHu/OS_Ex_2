@@ -2,9 +2,6 @@
 #include <queue>
 #include <iostream>
 
-
-
-
 Page::Page(int _num_pages, std::vector<int> _procs)
 {
 	this->num_pages = _num_pages;

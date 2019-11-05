@@ -7,14 +7,14 @@ public:
 	
 	Page(int, std::vector<int>);
 	void FIFO();
-
+	void LRU();
 	float get_shortpage_rate();
 	~Page();
 
 private:
 	std::vector<int> procs;
 	std::fstream outfile;
-	
+	//Ò³ÃæÊı
 	int num_pages;
 	//È±Ò³ÂÊ
 	float shortpage_rate;

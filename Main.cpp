@@ -4,6 +4,7 @@
 #include <Windows.h>
 #include <tchar.h>
 #include <algorithm>
+
 #include"Page.h"
 constexpr int BUFSIZE = 512;
 int main() {
@@ -54,7 +55,6 @@ int main() {
 	//		NULL
 	//	);
 	//	CloseHandle(hpipe_write);
-
 	//}
 
 
@@ -75,7 +75,6 @@ int main() {
 	//		}
 	//	}
 	//	DisconnectNamedPipe(hpipe);
-
 	//}
 
 
