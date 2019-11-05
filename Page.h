@@ -1,5 +1,6 @@
 #pragma once
 #include <vector>
+#include <fstream>
 class Page
 {
 public:
@@ -12,6 +13,8 @@ public:
 
 private:
 	std::vector<int> procs;
+	std::fstream outfile;
+	
 	int num_pages;
 	//È±Ò³ÂÊ
 	float shortpage_rate;

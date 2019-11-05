@@ -79,11 +79,9 @@ int main() {
 	//}
 
 
-
+	//读入进程访问序列
 	std::vector<int> procs;
 	std::fstream infile("infile.in", std::ios::in);
-
-	
 	while (!infile.eof())
 	{
 		int num_temp;
@@ -93,20 +91,9 @@ int main() {
 	}
 	infile.close();
 
-
+	//页面管理
 	Page page(3,procs);
 	page.FIFO();
-	/*for (auto i : procs)
-	{
-		std::cout << i << std::endl;
-	}*/
-	/*std::sort(page_num.begin(), page_num.end(), [](int a, int b) {
-		return	a > b;
-	});
-	for (auto i : page_num)
-	{
-		std::cout << i << std::endl;
-	}*/
 
-	system("pause");
+//	system("pause");
 }

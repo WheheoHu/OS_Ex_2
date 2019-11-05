@@ -13,6 +13,7 @@ Page::Page(int _num_pages, std::vector<int> _procs)
 
 void Page::FIFO()
 {
+	outfile.open("outFIFO.out", std::ios::out);
 	std::deque<int>  page_queue;
 	page_queue.resize(num_pages);
 	for (auto i : procs) {
@@ -21,14 +22,14 @@ void Page::FIFO()
 
 		auto it = std::find(page_queue.begin(), page_queue.end(), i);
 		if (it != page_queue.end()) {
-			std::cout << i << "    ";
+			outfile << i << "    ";
 			i++;
 			for (auto i : page_queue)
 			{
-				std::cout << i << " ";
+				outfile << i << " ";
 			}
 
-			std::cout << "\n";
+			outfile << "\n";
 			continue;
 
 
@@ -43,21 +44,22 @@ void Page::FIFO()
 				page_queue.pop_back();
 				page_queue.resize(num_pages);
 			}
-			//std::cout << page_queue.max_size();
+			//outfile << page_queue.max_size();
 
 		}
 		//È±Ò³ÓÃ*±íÊ¾
-		std::cout << i << "    ";
+		outfile << i << "    ";
 		for (auto i : page_queue)
 		{
-			std::cout << i << " ";
+			outfile << i << " ";
 		}
-		std::cout << "*\n";
+		outfile << "*\n";
 	}
 
 
-	std::cout <<"short page rate: "<< this->get_shortpage_rate() << std::endl;
+	outfile <<"short page rate: "<< this->get_shortpage_rate()*100 <<"%"<< std::endl;
 
+	outfile.close();
 
 }
 
