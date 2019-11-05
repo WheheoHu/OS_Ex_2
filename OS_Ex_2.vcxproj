@@ -116,9 +116,13 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Main.cpp" />
+    <ClCompile Include="Page.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="infile.in" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Page.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
