@@ -108,6 +108,5 @@ int main() {
 		std::cout << i << std::endl;
 	}*/
 
-	std::cout << page.get_shortpage_rate()<< std::endl;
 	system("pause");
 }
