@@ -1,11 +1,14 @@
 #include "Page.h"
 #include <queue>
 #include <iostream>
+#include <unordered_map>
+#include <unordered_set>
 
 Page::Page(int _num_pages, std::vector<int> _procs)
 {
 	this->num_pages = _num_pages;
 	this->procs = _procs;
+	faultpage_count = 0;
 }
 
 void Page::FIFO()
@@ -34,7 +37,7 @@ void Page::FIFO()
 		else
 		{
 			page_queue.push_front(i);
-			shortpage_count++;
+			faultpage_count++;
 			fshorted = true;
 			if (page_queue.size() >= num_pages)
 			{
@@ -55,9 +58,89 @@ void Page::FIFO()
 
 
 	outfile <<"short page rate: "<< this->get_shortpage_rate()*100 <<"%"<< std::endl;
-
+	faultpage_count = 0;
 	outfile.close();
 
+}
+
+void Page::LRU()
+{
+	std::unordered_set<int> page_set;
+	std::unordered_map<int, int> indexes;
+	outfile.open("outLRU.out", std::ios::out);
+	for (auto i :procs )
+	{
+		for (auto &it:indexes)
+		{
+			it.second++;
+		}
+		if (page_set.size()<num_pages)
+		{
+			if (page_set.find(i)==page_set.end())
+			{
+				page_set.insert(i);
+				indexes[i] = 0;
+				faultpage_count++;
+				outfile << i << "	";
+				for (auto i:page_set )
+				{
+					outfile << i << " ";
+				}
+				outfile << "*\n";
+			}
+			else
+			{
+				outfile << i << "	";
+				i++;
+				indexes[i]++;
+				for (auto i : page_set)
+				{
+					outfile << i << " ";
+				}
+				outfile << "\n";
+			}
+			
+		}
+		else
+		{
+			if (page_set.find(i) == page_set.end())
+			{
+				auto it = std::max_element(indexes.begin(), indexes.end(), [](const std::pair<int, int> &p1,
+					const std::pair<int, int> &p2) {
+					return p1.second < p2.second;
+				});
+				
+				page_set.erase(it->first);
+				indexes[it->first] = 0;
+				page_set.insert(i);
+				indexes[i] = 0;
+				faultpage_count++;
+				outfile << i << "	";
+				for (auto i : page_set)
+				{
+					outfile << i << " ";
+				}
+				outfile << "*\n";
+			}
+			else
+			{
+				outfile << i << "	";
+				i++;
+				indexes[i]++;
+				for (auto i : page_set)
+				{
+					outfile << i << " ";
+				}
+				outfile << "\n";
+			}
+		}
+	}
+
+
+
+	outfile << "short page rate: " << this->get_shortpage_rate() * 100 << "%" << std::endl;
+	faultpage_count = 0;
+	outfile.close();
 }
 
 Page::~Page()
@@ -66,5 +149,5 @@ Page::~Page()
 
 float Page::get_shortpage_rate()
 {
-	return shortpage_count / procs.size();
+	return faultpage_count / procs.size();
 }

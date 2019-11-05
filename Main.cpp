@@ -91,8 +91,9 @@ int main() {
 	infile.close();
 
 	//“≥√Êπ‹¿Ì
-	Page page(3,procs);
+	Page page(4,procs);
 	page.FIFO();
+	page.LRU();
 
 //	system("pause");
 }

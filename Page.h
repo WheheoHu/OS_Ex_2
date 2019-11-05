@@ -17,8 +17,8 @@ private:
 	//页面数
 	int num_pages;
 	//缺页率
-	float shortpage_rate;
+	float faultpage_rate;
 	//缺页个数
-	float shortpage_count;
+	float faultpage_count;
 };
 
